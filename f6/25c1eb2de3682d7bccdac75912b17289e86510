@@ -1,0 +1,180 @@
+Sources/Kestrel/Snapshot.swift
+  s_50f7516ed4abbf::t_8339c651f39766 32,34-42,47
+  s_50f7516ed4abbf::t_d263328cf6b6e2 85,87,99,133,145-146,184
+  s_50f7516ed4abbf::t_fbef9ba1b17544 93,132,134-144
+  s_50f7516ed4abbf::t_f4260b17838c67 1-17,33,48,50,62,64-68,71-84,185
+  s_50f7516ed4abbf::t_a5e83cca446369 18-31
+  s_50f7516ed4abbf::t_6a4489c4563948 51-61
+  s_50f7516ed4abbf::t_42a5c5c632c659 63,70
+  s_50f7516ed4abbf::t_30d8f60993108a 69
+  s_50f7516ed4abbf::t_1dafe5d1fe6b58 43-46,49
+  s_50f7516ed4abbf::t_3ec423d14fb09f 86,88-92,94-98,100-131,147-183
+Sources/KestrelKit/KafkaConfig.swift
+  s_50f7516ed4abbf::t_a46305e3a7861f 1-51
+Sources/Kestrel/AboutView.swift
+  s_50f7516ed4abbf::t_583914f11eb28b 1-28
+Scripts/build-app.sh
+  s_50f7516ed4abbf::t_dd9c4256d59c18 1-30
+.gitignore
+  s_50f7516ed4abbf::t_ec8ef61986de26 1-6
+Sources/Kestrel/RootView.swift
+  s_50f7516ed4abbf::t_e7100bcb465101 81-82
+  s_50f7516ed4abbf::t_b7e9c8ef9cb533 2-13,93-95,158-160,224,263-265,318-320,353-356,377-380
+  s_50f7516ed4abbf::t_e6cf43810b75f4 61-69
+  s_50f7516ed4abbf::t_2d99e9dbf36305 44-45
+  s_50f7516ed4abbf::t_ce7cd78512b2b8 40-43
+  s_50f7516ed4abbf::t_223275b61f2a6c 96-118,138-155
+  s_50f7516ed4abbf::t_f1a14f83bdae08 32-36,87-92
+  s_50f7516ed4abbf::t_b27ff62e23d9d9 358-363,365-372,374-376
+  s_50f7516ed4abbf::t_313d576e11b97b 52-59
+  s_50f7516ed4abbf::t_51d03dcc1cf0c8 1,14-31
+  s_50f7516ed4abbf::t_f3f85881865dca 37-39,83-86,156-157,161-197,199-204,206-223,225-262,266-317,321-352,357,364,373
+  s_50f7516ed4abbf::t_0745c096716a4a 46-51,60,198,205
+  s_50f7516ed4abbf::t_e1871797a583ce 70-80,119-137
+Resources/Info.plist
+  s_50f7516ed4abbf::t_41a5303a25abb0 1-38
+PLAN.md
+  s_50f7516ed4abbf::t_fd945adf6ccd42 36
+  s_50f7516ed4abbf::t_0df8cb382ce325 19
+  s_50f7516ed4abbf::t_8b83fa1ac83aed 14
+  s_50f7516ed4abbf::t_da6d5dce6d0076 9
+  s_50f7516ed4abbf::t_42ab20547bfedd 31
+  s_50f7516ed4abbf::t_b96746d843e8bc 26
+  s_50f7516ed4abbf::t_9f4ccac9e1cd8d 1-8,10-13,15-18,20-25,27-30,32-35,37-114
+Sources/Kestrel/ClusterEditorSheet.swift
+  s_50f7516ed4abbf::t_65ead749efbaac 1-8,10-54,57-69,74-113
+  s_50f7516ed4abbf::t_29ac15cfda96ef 9
+  s_50f7516ed4abbf::t_8a08b60e4966f2 55-56,70-73
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_194899b57bc537 148-191,257-263,394-430
+  s_50f7516ed4abbf::t_7d7c36064e077a 4
+  s_50f7516ed4abbf::t_fefdef28ea7d09 1-3,5-147,431-462
+  s_50f7516ed4abbf::t_a469e89ea86848 264-393
+  s_50f7516ed4abbf::t_c73c746269243b 192-256
+Sources/Crdkafka/shim.h
+  s_50f7516ed4abbf::t_0b7b84b8f59a91 1
+Sources/KestrelKit/KafkaRecord.swift
+  s_50f7516ed4abbf::t_e3e72dc4c796e8 1-129
+Sources/Crdkafka/module.modulemap
+  s_50f7516ed4abbf::t_e70b795e05f56c 1-5
+Sources/KestrelKit/KafkaError.swift
+  s_50f7516ed4abbf::t_7b0112d6c02ca8 1-34,39-66
+  s_50f7516ed4abbf::t_b6729c248921ea 35-38
+Sources/KestrelKit/KeychainStore.swift
+  s_50f7516ed4abbf::t_696644ce7cdfe5 1-121
+LOOP.md
+  s_82d30bd6c9606c::t_20a50243427c6c 89
+  s_82d30bd6c9606c::t_91cd10e2d99077 16-18
+  s_82d30bd6c9606c::t_4f2a78fc0d4660 44
+  s_444d1cf16f2421::t_b29460945bfd85 1-15,19-43,45-88,90-97
+Sources/Kestrel/SidebarView.swift
+  s_50f7516ed4abbf::t_2d99e9dbf36305 44-47,49-51,72-73,83,93,102-103,105,124-125
+  s_50f7516ed4abbf::t_9f392bbe2b6570 1-43,48,52-71,74-82,84-92,94-101,104,106-123,126-147
+README.md
+  s_50f7516ed4abbf::t_855c53a42f1317 67,72-73,76-78,83,85
+  s_82d30bd6c9606c::t_0dcec88ef0d108 81
+  s_50f7516ed4abbf::t_d12587540c4853 7-14
+  s_50f7516ed4abbf::t_c4b18c6df8bbfe 25-43
+  s_50f7516ed4abbf::t_8d0fdef572b653 68
+  s_50f7516ed4abbf::t_451ebc253fb912 47-49,55-66,69-71,74-75
+  s_50f7516ed4abbf::t_c678e32b8f0a67 5-6,15-24,44-46,50-54
+  s_50f7516ed4abbf::t_3580c551064068 2-4
+  s_50f7516ed4abbf::t_4b4035a38b7246 84
+  s_50f7516ed4abbf::t_858b46c6cf20e2 86-88
+Sources/KestrelKit/ClusterProfile.swift
+  s_50f7516ed4abbf::t_6e57a1829c2dac 1-87
+Package.swift
+  s_50f7516ed4abbf::t_d813e99c5f05b0 1-7,22-23,25,34-36
+  s_50f7516ed4abbf::t_965b0223c90b8f 27-31,33
+  s_50f7516ed4abbf::t_606157f9ee6538 10-16,19
+  s_50f7516ed4abbf::t_4eee3d69cf31ee 8-9,17-18,20-21,24,26,32
+Sources/Kestrel/KestrelApp.swift
+  s_50f7516ed4abbf::t_d2ac15045c45f6 1-26
+Sources/Kestrel/ClusterConnection.swift
+  s_50f7516ed4abbf::t_2fdb531311d1a7 1-50,57-58,62-69,75-76,78-128,226-241
+  s_50f7516ed4abbf::t_805e149087e08e 51-56,59-61,72-73,77,170-223
+  s_50f7516ed4abbf::t_73171f2a0e74f2 129-169,224-225
+  s_50f7516ed4abbf::t_c88827788909e5 70-71,74
+Sources/Kestrel/Inspectors.swift
+  s_50f7516ed4abbf::t_55760ec01e3b40 1-46,48-94,97-268
+  s_50f7516ed4abbf::t_e1871797a583ce 47,95-96
+Sources/KestrelKit/KafkaConfiguration.swift
+  s_50f7516ed4abbf::t_0ff15267820676 1-140,144-166
+  s_50f7516ed4abbf::t_f1af699786788c 141-143
+Sources/KestrelKit/KafkaConsumer.swift
+  s_50f7516ed4abbf::t_481ff8839a6df1 260-265,270
+  s_50f7516ed4abbf::t_cb44f1c99c15c7 208,225-231,234-236,240-242,248,267-268,271-272
+  s_50f7516ed4abbf::t_c326622522d895 1-207,209-224,232-233,237-239,243-247,249-259,266,269,273-276
+Sources/KestrelKit/ClusterProfileRepository.swift
+  s_50f7516ed4abbf::t_2f5256517285bc 1-50
+Sources/Kestrel/ClusterStore.swift
+  s_50f7516ed4abbf::t_ce7cd78512b2b8 194-200
+  s_50f7516ed4abbf::t_5c98d08a689a3b 24-25,29,42,46,49-51,56-57,72,77-81,83-84,97,103,111-151,171-172,201-205,208-223,225,228-230,232-247,257,259-260,262,264
+  s_50f7516ed4abbf::t_9fac9f5bf11c21 30-40,45,47
+  s_50f7516ed4abbf::t_b4a69eae4311b4 1,3,5,21-23,26-28,256,265-266
+  s_50f7516ed4abbf::t_4cfe0639ce2827 173-193
+  s_50f7516ed4abbf::t_0245df47a149f8 226-227
+  s_50f7516ed4abbf::t_d5f558b3629023 2,4,6-20,41,43-44,48,58-71,73-76,82,85-96,98-102,104-105,160,167-169,258,261,263
+  s_50f7516ed4abbf::t_22d76fad9ce5fc 106-110,152-159,161-166,170,206-207,224,231,248-255
+  s_50f7516ed4abbf::t_3229229f2cebee 52-55
+Sources/KestrelKit/KafkaClient.swift
+  s_50f7516ed4abbf::t_22b6f57d4432bf 41,60,81
+  s_50f7516ed4abbf::t_63f30ef3603841 194,197-199
+  s_50f7516ed4abbf::t_5eff7a9fc2bf53 61-65,71
+  s_50f7516ed4abbf::t_a2a2d6eff41b44 1-40,42-59,66-70,72-80,82-156,259-273,275-355
+  s_50f7516ed4abbf::t_8f06c76fafee2f 157-193,195-196,200-258
+  s_50f7516ed4abbf::t_c9f523f104d351 274
+Sources/KestrelChecks/Harness.swift
+  s_50f7516ed4abbf::t_636d78b354d6e0 1-8,14-16,18-19,21,23-25,36,53-75
+  s_50f7516ed4abbf::t_7c9b80f4f06305 12,26,40
+  s_50f7516ed4abbf::t_5197e772ce9490 27-28,30,32-34,38-39,41
+  s_50f7516ed4abbf::t_30768a967535bf 9-11,13,17,20,22,29,31,35,37,42-52
+Sources/KestrelKit/KafkaMetadata.swift
+  s_50f7516ed4abbf::t_3ce2a8da80778a 1-123
+Sources/Kestrel/MessageBrowser.swift
+  s_50f7516ed4abbf::t_1214ae659ef15b 1-288
+Sources/Kestrel/KestrelCommands.swift
+  s_50f7516ed4abbf::t_f13ae11ebd07a8 21-27,31,35-52
+  s_50f7516ed4abbf::t_16113dcb3feee7 1-16,18-20,28,34,54-82
+  s_50f7516ed4abbf::t_0fa5d7cb7994ce 17,29-30,32-33,53
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_67a5a5d60afa2c 13,16,26,31-32,34
+  s_50f7516ed4abbf::t_82964abfb9e921 14-15,25,27
+  s_50f7516ed4abbf::t_7764cec26f5bb8 17-19,24,28-30,33,35-38,56,64
+  s_50f7516ed4abbf::t_fe0acfee6117f7 61-62,65
+  s_50f7516ed4abbf::t_8b56afa4a51ab2 20-21,23,57-60,63
+  s_50f7516ed4abbf::t_cbc45b9d1260c6 7-10,22,39-55
+  s_50f7516ed4abbf::t_bfc29230b43d09 1-6,11-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "f625c1eb2de3682d7bccdac75912b17289e86510",
+  "prompts": {},
+  "sessions": {
+    "s_444d1cf16f2421": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "713a15e6-9bd8-4867-b7fe-3ce2a5fb7319",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    },
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    },
+    "s_82d30bd6c9606c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "efa39f7d-470e-4ae6-b0e4-1f98679f83a5",
+        "model": "default"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
