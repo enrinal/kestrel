@@ -22,7 +22,7 @@ Requirements: **macOS 14 or newer, Apple silicon**.
 - **Records** — consume from the earliest offset, the latest *N*, or a numeric offset, with a
   detail pane that pretty-prints JSON and decodes **Avro** through a Schema Registry.
 - **Producing** — send a record by hand, from a file, or from key and value templates that generate
-  as many as you ask for.
+  as many as you ask for, compressed with **gzip, Snappy, LZ4 or Zstandard** if the topic expects it.
 - **Consumer groups** — members, committed offsets, lag, and offset resets.
 - **Schema Registry** — browse subjects and versions, fetch a schema, and use it to encode or decode.
 - **Kafka Connect** — list connectors with task status, and pause, resume or restart them; a failed
@@ -145,6 +145,9 @@ cluster.
 | `generate <topic>` | produces records from key and value templates |
 | `find <text>` | searches keys and values across topics |
 
+`--compression <codec>` on any of the producing commands overrides the profile's codec for that run;
+see [Compression](#compression).
+
 `--json` switches every command to machine-readable output. Values are JSON **strings** even when
 they look like numbers, so a topic named `42` stays `"42"`; pipe through `tonumber` if a number is
 wanted. `consume --json` prints one saved envelope per line, which is exactly what `import` reads,
@@ -165,6 +168,24 @@ cannot be answered and the command looks like it has hung. Two things keep that 
 
 Clicking **Always Allow** on the prompt once is the other way; it adds `kestrel` to that item's
 access list.
+
+## Compression
+
+Reading a compressed topic needs no setting at all: a batch carries the codec it was written with,
+and the client decompresses it before Kestrel sees a record. gzip, Snappy, LZ4 and Zstandard all
+read out of the box.
+
+Writing is the one that has to be told. **Edit Cluster ▸ Producing ▸ Compression** sets the codec
+for everything the app sends to that cluster, and defaults to *None*, which is what Kafka clients
+do unless asked otherwise. The CLI takes `--compression` on any command that produces — `produce`,
+`import`, `generate`, and `export --to-topic` — overriding the profile for that run only:
+
+```
+kestrel produce orders --cluster staging --value '{"id":1}' --compression snappy
+```
+
+`kestrel clusters` lists each profile's codec, since it changes what a produce puts on the wire
+without otherwise showing up anywhere.
 
 ## Where settings live
 

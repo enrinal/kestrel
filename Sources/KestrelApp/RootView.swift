@@ -573,6 +573,7 @@ struct ClusterInspector: View {
                 if cluster.securityProtocol.usesTLS {
                     LabeledContent("Verify Hostname", value: cluster.tls.verifyHostname ? "Yes" : "No")
                 }
+                LabeledContent("Compression", value: cluster.compression.label)
             }
 
             Section("Status") {

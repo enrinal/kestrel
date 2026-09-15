@@ -32,6 +32,34 @@ public enum SASLMechanism: String, Codable, CaseIterable, Sendable, Identifiable
     public var id: String { rawValue }
 }
 
+/// Kafka `compression.codec` values, as librdkafka spells them.
+///
+/// Only the produce side needs this: a consumer decompresses whatever a batch
+/// arrived as, without being told. A codec the linked librdkafka was built
+/// without is refused by `rd_kafka_conf_set`, so an unsupported choice surfaces
+/// as a ``KafkaError/configuration(key:reason:)`` when the client is made,
+/// rather than as a produce that fails later for no stated reason.
+public enum CompressionCodec: String, Codable, CaseIterable, Sendable, Identifiable {
+    case none
+    case gzip
+    case snappy
+    case lz4
+    case zstd
+
+    public var id: String { rawValue }
+
+    /// Name for a menu, where a bare "none" reads as a missing value.
+    public var label: String {
+        switch self {
+        case .none: return "None"
+        case .gzip: return "gzip"
+        case .snappy: return "Snappy"
+        case .lz4: return "LZ4"
+        case .zstd: return "Zstandard"
+        }
+    }
+}
+
 /// TLS material locations. Paths only — the key passphrase is a secret and lives
 /// in the Keychain.
 public struct TLSSettings: Hashable, Codable, Sendable {
@@ -112,6 +140,10 @@ public struct ClusterProfile: Identifiable, Hashable, Codable, Sendable {
     public var tls: TLSSettings
     public var schemaRegistry: SchemaRegistrySettings
     public var connect: ConnectSettings
+    /// Codec this cluster's producer compresses batches with. Defaults to
+    /// ``CompressionCodec/none``, which is also librdkafka's default, so a
+    /// profile saved before the field existed keeps producing as it did.
+    public var compression: CompressionCodec
 
     public init(
         id: UUID = UUID(),
@@ -122,7 +154,8 @@ public struct ClusterProfile: Identifiable, Hashable, Codable, Sendable {
         saslUsername: String = "",
         tls: TLSSettings = TLSSettings(),
         schemaRegistry: SchemaRegistrySettings = SchemaRegistrySettings(),
-        connect: ConnectSettings = ConnectSettings()
+        connect: ConnectSettings = ConnectSettings(),
+        compression: CompressionCodec = .none
     ) {
         self.id = id
         self.name = name
@@ -133,6 +166,7 @@ public struct ClusterProfile: Identifiable, Hashable, Codable, Sendable {
         self.tls = tls
         self.schemaRegistry = schemaRegistry
         self.connect = connect
+        self.compression = compression
     }
 
     /// Decoded field by field so a profile saved before a field existed still
@@ -156,5 +190,7 @@ public struct ClusterProfile: Identifiable, Hashable, Codable, Sendable {
         ) ?? SchemaRegistrySettings()
         connect = try container.decodeIfPresent(ConnectSettings.self, forKey: .connect)
             ?? ConnectSettings()
+        compression = try container.decodeIfPresent(CompressionCodec.self, forKey: .compression)
+            ?? .none
     }
 }

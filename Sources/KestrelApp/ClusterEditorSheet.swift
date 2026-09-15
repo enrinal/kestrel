@@ -52,6 +52,15 @@ struct ClusterEditorSheet: View {
                     }
                 }
 
+                Section("Producing") {
+                    Picker("Compression", selection: $draft.profile.compression) {
+                        ForEach(CompressionCodec.allCases) { Text($0.label).tag($0) }
+                    }
+                    Text("Codec for records this app sends. Reading a compressed topic needs no setting — a batch says how it was compressed.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
+
                 Section("Schema Registry") {
                     TextField(
                         "URL",

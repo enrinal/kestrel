@@ -40,6 +40,10 @@ let usage = """
       --cluster <name>              a cluster saved by the app (see `kestrel clusters`)
       --bootstrap <host:port>       a plaintext cluster, with nothing saved
       --timeout <seconds>           per-request timeout, default 10
+      --compression <codec>         none, gzip, snappy, lz4 or zstd. Applies to the
+                                    commands that produce, for this run only; the
+                                    saved profile's codec is the default. Reading a
+                                    compressed topic needs no setting at all.
       --no-keychain                 skip the saved secrets, and the prompt reading them
                                     causes. Needed in scripts and over ssh, where the
                                     prompt cannot be answered.
@@ -52,6 +56,7 @@ let usage = """
       kestrel topics --cluster local
       kestrel consume orders --cluster local --partition 0 --tail 5
       kestrel produce orders --cluster local --key k1 --value '{"id":1}'
+      kestrel produce orders --cluster local --value '{"id":1}' --compression snappy
       kestrel groups my-group --cluster local
       kestrel find needle --cluster local --topic orders --regex
       kestrel connect status my-connector --cluster local
@@ -87,6 +92,7 @@ let commandHelp: [String: String] = [
           --partition <n>   send to a specific partition
           --header <k=v,..> headers, comma separated
           --tombstone       send a null value instead of --value
+          --compression <c> none, gzip, snappy, lz4 or zstd, default the profile's
         """,
     "groups": "kestrel groups [<group>] --cluster <name>",
     "schema": """
@@ -99,12 +105,14 @@ let commandHelp: [String: String] = [
     "import": """
         kestrel import <file> --cluster <name> --topic <name>
           Reads saved envelopes or plain JSON lines, the same formats the app imports.
+          --compression <c> none, gzip, snappy, lz4 or zstd, default the profile's
         """,
     "export": """
         kestrel export <topic> --cluster <name> [--file <path> | --to-topic <name>]
           --partition <n>   one partition, default all
           --from <offset>   first offset to include
           --to <offset>     one past the last offset to include
+          --compression <c> codec for --to-topic, default the profile's
         """,
     "generate": """
         kestrel generate <topic> --cluster <name>
@@ -113,6 +121,7 @@ let commandHelp: [String: String] = [
           --value <template> value template, default {"index":{{index}},"id":"{{uuid}}"}
           --partition <n>   send every record to one partition
           --seed <n>        seed the randomness, for reproducible output
+          --compression <c> none, gzip, snappy, lz4 or zstd, default the profile's
           Placeholders: {{index}} {{uuid}} {{timestamp}} {{millis}} {{lorem}} {{int:a-b}} {{choice:x|y}}
         """,
     "find": """

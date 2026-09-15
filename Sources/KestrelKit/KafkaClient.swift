@@ -74,7 +74,10 @@ public actor KafkaClient {
         let conf = try KafkaConfigurationBuilder.make(
             profile: profile,
             secrets: secrets,
-            diagnostics: errors
+            diagnostics: errors,
+            // Set on the producer only: the consumer decompresses a batch by
+            // reading the codec off it, so telling it one would mean nothing.
+            extras: ["compression.codec": profile.compression.rawValue]
         )
 
         var errstr = [CChar](repeating: 0, count: 512)

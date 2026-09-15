@@ -173,6 +173,26 @@ func registerCLIChecks(_ harness: Harness) async {
             try expectEqual(result.status, 0, "exit code: \(result.err)")
             try expect(result.out.contains("19092"), "should still list the broker")
         }
+
+        h.check("--compression sends the record, and a misspelled codec is refused") {
+            let sent = kestrelLocal([
+                "produce", "kestrel.produce.test",
+                "--value", "compressed from the CLI",
+                "--compression", "gzip"
+            ])
+            try expectEqual(sent.status, 0, "exit code: \(sent.err)")
+
+            // Exit 2, not 1: a codec that does not exist is a typo in the
+            // command line, not a broker refusing the record.
+            let typo = kestrelLocal([
+                "produce", "kestrel.produce.test",
+                "--value", "x",
+                "--compression", "snapy"
+            ])
+            try expectEqual(typo.status, 2, "exit code")
+            try expect(typo.err.contains("snapy"), "should quote what was typed: \(typo.err)")
+            try expect(typo.err.contains("snappy"), "should list the real codecs: \(typo.err)")
+        }
     }
 
     await harness.asyncSuite("Listing through the CLI") { h in

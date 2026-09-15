@@ -76,6 +76,54 @@ harness.suite("Cluster profile persistence") { h in
         try expect(!decoded.securityProtocol.usesSASL, "PLAINTEXT should not use SASL")
         try expect(!decoded.securityProtocol.usesTLS, "PLAINTEXT should not use TLS")
     }
+
+    h.check("the compression codec round trips, and an older profile reads as none") {
+        var profile = sampleProfile()
+        profile.compression = .snappy
+
+        let decoded = try JSONDecoder().decode(
+            ClusterProfile.self,
+            from: try JSONEncoder().encode(profile)
+        )
+        try expectEqual(decoded.compression, .snappy, "codec")
+
+        // A profile written before the field existed must keep producing the
+        // way it did, which is librdkafka's default of no compression.
+        let old = #"""
+            {"id":"6E8C5A6E-4E6E-4C2E-9E4A-1B2C3D4E5F61","name":"old",
+             "bootstrapServers":"localhost:19092","securityProtocol":"PLAINTEXT",
+             "saslUsername":"","tls":{"caLocation":"","certificateLocation":"",
+             "keyLocation":"","verifyHostname":true}}
+            """#
+        let older = try JSONDecoder().decode(ClusterProfile.self, from: Data(old.utf8))
+        try expectEqual(older.compression, .none, "a profile without the field")
+    }
+
+    h.check("a codec nobody supports is refused by the decoder, not passed to the broker") {
+        // Hand-edited into clusters.json, or written by a future build. The
+        // value goes straight into librdkafka's compression.codec, so it must
+        // fail at the profile rather than turn into a produce that reports
+        // success while sending something else.
+        let json = #"""
+            {"id":"6E8C5A6E-4E6E-4C2E-9E4A-1B2C3D4E5F62","name":"exotic",
+             "bootstrapServers":"localhost:19092","securityProtocol":"PLAINTEXT",
+             "saslUsername":"","tls":{"caLocation":"","certificateLocation":"",
+             "keyLocation":"","verifyHostname":true},"compression":"brotli"}
+            """#
+        let profile = try? JSONDecoder().decode(ClusterProfile.self, from: Data(json.utf8))
+        try expect(profile == nil, "\"brotli\" should not decode into a profile")
+    }
+
+    h.check("every codec the menu offers is one librdkafka accepts") {
+        // The raw values go straight into compression.codec, so a misspelling
+        // would only show up as a client that refuses to be created. Needs no
+        // broker: rd_kafka_new validates the config before connecting.
+        for codec in CompressionCodec.allCases {
+            var profile = ClusterProfile(name: "probe", bootstrapServers: "localhost:1")
+            profile.compression = codec
+            _ = try KafkaClient(profile: profile)
+        }
+    }
 }
 
 // MARK: Keychain
@@ -903,6 +951,44 @@ await harness.asyncSuite("Saving a live record") { h in
         print("       offset \(record.offset): \(value.count) value bytes round-tripped in both formats")
         print("       envelope timestamp \(readable)")
     }
+}
+
+await harness.asyncSuite("Compression") { h in
+    let scratchTopic = "kestrel.produce.test"
+
+    // One check per codec rather than a loop, so a broker or a librdkafka build
+    // missing exactly one of them names it instead of failing the whole set.
+    for codec in CompressionCodec.allCases {
+        await h.checkAsync("a record produced with \(codec.rawValue) reads back unchanged") {
+            var profile = localProfile
+            profile.compression = codec
+
+            // A repetitive value, so a codec that silently did nothing would
+            // still be doing something visible on the wire. What is asserted is
+            // the round trip: the consumer is told nothing about the codec and
+            // must still hand back the original bytes.
+            let value = Data(String(repeating: "compress me. ", count: 200).utf8)
+            let key = Data("codec-\(codec.rawValue)".utf8)
+
+            let client = try KafkaClient(profile: profile, secrets: .none)
+            let report = try await client.produce(topic: scratchTopic, key: key, value: value)
+
+            let consumer = try KafkaConsumer(profile: localProfile)
+            let page = try await consumer.fetch(
+                topic: scratchTopic,
+                partition: report.partition,
+                from: .offset(report.offset),
+                limit: 1
+            )
+            guard let record = page.records.first else {
+                throw Expectation(description: "nothing at offset \(report.offset)")
+            }
+            try expectEqual(record.key, key, "key")
+            try expectEqual(record.value, value, "value")
+            print("       \(codec.rawValue): \(value.count) bytes at offset \(record.offset)")
+        }
+    }
+
 }
 
 await harness.asyncSuite("Topic management") { h in
