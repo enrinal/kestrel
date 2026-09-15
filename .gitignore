@@ -1,0 +1,11 @@
+.build/
+build/
+dist/
+.swiftpm/
+.DS_Store
+*.xcuserdatad
+
+# Build-loop working notes, kept local
+LOOP.md
+LOOP_STATE.md
+PLAN.md

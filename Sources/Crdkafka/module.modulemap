@@ -1,0 +1,5 @@
+module Crdkafka [system] {
+    header "shim.h"
+    link "rdkafka"
+    export *
+}

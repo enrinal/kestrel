@@ -1,0 +1,116 @@
+# Kafka for developing Kestrel.
+#
+# Deliberately on port 19092, not the usual 9092, so this can run alongside any
+# other Kafka on the machine without either one having to stop.
+#
+#   docker compose -f Docker/kafka.yml up -d
+#   docker compose -f Docker/kafka.yml down -v     # also discards the data
+#
+# Single node in KRaft mode: no ZooKeeper, and replication factors are all 1
+# because there is only one broker.
+services:
+  kestrel-kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    container_name: kestrel-kafka
+    ports:
+      - "19092:19092"
+    environment:
+      # A fixed cluster id keeps the volume reusable across restarts.
+      CLUSTER_ID: kestrel-dev-cluster-01
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kestrel-kafka:29093
+      # Two listeners on purpose. HOST is what Kestrel and the CLI use from
+      # the Mac; INTERNAL is what other containers use, because "localhost"
+      # inside Schema Registry's container is Schema Registry, not the broker.
+      KAFKA_LISTENERS: HOST://0.0.0.0:19092,INTERNAL://0.0.0.0:29092,CONTROLLER://0.0.0.0:29093
+      # Each advertised address must be reachable from where that listener's
+      # clients live, or metadata sends them somewhere they cannot resolve.
+      KAFKA_ADVERTISED_LISTENERS: HOST://localhost:19092,INTERNAL://kestrel-kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: HOST:PLAINTEXT,INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      # No rebalance delay: a consumer group becomes Stable immediately, which
+      # matters for the group checks.
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # Off on purpose. With auto-creation on, producing to a misspelled topic
+      # silently creates it, which cost a cleanup in slice 07 and makes
+      # "produce to a missing topic" untestable.
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+    volumes:
+      - kestrel-kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:19092"]
+      interval: 5s
+      timeout: 10s
+      retries: 12
+
+  # Schema Registry, for the Avro slice. Port 18081 rather than the usual
+  # 8081, for the same reason the broker avoids 9092.
+  kestrel-schema-registry:
+    image: confluentinc/cp-schema-registry:7.6.1
+    container_name: kestrel-schema-registry
+    depends_on:
+      kestrel-kafka:
+        condition: service_healthy
+    ports:
+      - "18081:18081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: kestrel-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:18081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kestrel-kafka:29092
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
+      # The store topic has to be created for it: the broker does not
+      # auto-create topics.
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18081/subjects"]
+      interval: 5s
+      timeout: 10s
+      retries: 12
+
+  # Kafka Connect, for the connector slice. Port 18083 rather than 8083, for
+  # the same reason as the others.
+  kestrel-connect:
+    image: confluentinc/cp-kafka-connect:7.6.1
+    container_name: kestrel-connect
+    depends_on:
+      kestrel-kafka:
+        condition: service_healthy
+    ports:
+      - "18083:18083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kestrel-kafka:29092
+      # `listeners`, not `rest.port` or `rest.listeners`: those were removed in
+      # Kafka 3.0 and are silently ignored, leaving the worker on 8083.
+      CONNECT_LISTENERS: http://0.0.0.0:18083
+      CONNECT_REST_ADVERTISED_HOST_NAME: kestrel-connect
+      CONNECT_REST_ADVERTISED_PORT: 18083
+      CONNECT_GROUP_ID: kestrel-connect
+      # Connect stores its own state in Kafka. These three topics have to exist
+      # and, with auto-creation off on the broker, Connect creates them itself
+      # using the replication factor below.
+      CONNECT_CONFIG_STORAGE_TOPIC: kestrel-connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: kestrel-connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: kestrel-connect-status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      # The FileStream connectors ship outside the plugin path in 7.x, so they
+      # have to be named explicitly or the worker loads no connectors at all.
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/usr/share/filestream-connectors
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18083/connectors"]
+      interval: 5s
+      timeout: 10s
+      retries: 24
+
+volumes:
+  kestrel-kafka-data:
