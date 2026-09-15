@@ -1,0 +1,65 @@
+Sources/KestrelCLI/Context.swift
+  s_50f7516ed4abbf::t_d613e75a04f285 98-105
+  s_50f7516ed4abbf::t_3ea82c30889156 22-25,28-31,43-46
+  s_50f7516ed4abbf::t_13ca4979889975 1-21,26-27,32-42,47-97,106-162
+Package.swift
+  s_50f7516ed4abbf::t_b83b428b49d22b 7-11,39-45
+  s_50f7516ed4abbf::t_b8ac35ae8389ad 27-30,32,34
+Sources/KestrelCLI/main.swift
+  s_50f7516ed4abbf::t_d613e75a04f285 43-45
+  s_50f7516ed4abbf::t_b79cc471978319 1-27,29-42,46-66,72-205
+  s_50f7516ed4abbf::t_e5e5d5ee61fef0 28,67-71
+Sources/KestrelCLI/Commands.swift
+  s_50f7516ed4abbf::t_3ea82c30889156 207,643-652,654-657,662-665
+  s_50f7516ed4abbf::t_b6f4a858bb8276 679-685,687-688
+  s_50f7516ed4abbf::t_899c4f88db2659 653,658-661
+  s_50f7516ed4abbf::t_e5e5d5ee61fef0 39-43,45-52,91-118,120-136
+  s_50f7516ed4abbf::t_eb3e80a1434848 80,176-177,262-263,442-443,497-501,553-554,642,666-678,686,689-694,697
+  s_50f7516ed4abbf::t_7dee0c7f012d51 72,172,570
+  s_50f7516ed4abbf::t_56f2d501dbfc22 1-38,44,53-71,73-79,81-90,119,137-171,173-175,178-206,208-261,264-441,444-496,502-552,555-569,571-641,695-696,698-707
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_368c5fef33f786 7-9,21,39-44
+Sources/KestrelCLI/Output.swift
+  s_50f7516ed4abbf::t_451fa6c17b6659 1-143
+Sources/KestrelCLI/Arguments.swift
+  s_50f7516ed4abbf::t_d613e75a04f285 38-39,142-144
+  s_50f7516ed4abbf::t_11ed68748d8e0e 1-37,40-141,145-157
+Scripts/build-app.sh
+  s_50f7516ed4abbf::t_cfa0826618d517 20-24
+Sources/KestrelKit/AvroCodec.swift
+  s_50f7516ed4abbf::t_7a4afb03e86863 23-26,348,354,360,366,372,379,391,407,419,449,455
+Sources/KestrelChecks/CLIChecks.swift
+  s_50f7516ed4abbf::t_a71b27f69f7a29 499-501
+  s_50f7516ed4abbf::t_a48c59394115d4 1-74,77-177,179-195,197-402,409-487,489-498,502-544,546-548,550-555,557-571,574,577,579,581-589
+  s_50f7516ed4abbf::t_388fbc5eda9d4e 403-408
+  s_50f7516ed4abbf::t_312127eb8a1f29 545,549,556,573,578
+  s_50f7516ed4abbf::t_5789b159f47c56 76,178,196,488,572
+  s_50f7516ed4abbf::t_ddca04e30358a9 575-576,580
+  s_50f7516ed4abbf::t_53ca83304a12d0 75
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_312127eb8a1f29 3908-3909,3911
+  s_50f7516ed4abbf::t_5789b159f47c56 3910
+  s_50f7516ed4abbf::t_7a4afb03e86863 3063,3077,3088,3448
+PLAN.md
+  s_50f7516ed4abbf::t_57624a5ca0b1f8 102
+README.md
+  s_50f7516ed4abbf::t_cfa0826618d517 25-81,151-154
+Sources/KestrelApp/RootView.swift
+  s_50f7516ed4abbf::t_13341538850551 248-249,268-281
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "572de5809fce88ce7ef5f742e78a4306063221cd",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
