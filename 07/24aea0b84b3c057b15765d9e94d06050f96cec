@@ -1,0 +1,37 @@
+Docker/kafka.yml
+  s_50f7516ed4abbf::t_323f9a9463008b 1-50
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_e68b4ee15c62bc 209-213,218
+  s_50f7516ed4abbf::t_e2a7969d194da8 1468-1470
+  s_50f7516ed4abbf::t_4e30d8a711d7ef 312-331
+  s_50f7516ed4abbf::t_904d7f8da9b2bf 1156-1164,1166
+  s_50f7516ed4abbf::t_b67d80d7b9cd1d 1135-1140,1147
+  s_50f7516ed4abbf::t_cdf840da029c22 162-208,214-217,219-226,292-301,335-353,1052-1053,1098-1099,1391-1394
+  s_50f7516ed4abbf::t_c0f0ac1934927a 241-291,302-311,332-334,354-359
+  s_50f7516ed4abbf::t_2fd010102f5cd1 1146
+  s_50f7516ed4abbf::t_a617873b6354bc 150-152,155-161,227,230,360,458,476,874,876,1054,1236,1371,1374,1453
+LOOP.md
+  s_50f7516ed4abbf::t_4659016f8e2270 49,58
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_de9bba326a53e2 45,47-60
+PLAN.md
+  s_50f7516ed4abbf::t_565490aa35e43b 22
+README.md
+  s_50f7516ed4abbf::t_78e9584248f16a 25-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "0724aea0b84b3c057b15765d9e94d06050f96cec",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
