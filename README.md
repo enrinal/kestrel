@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/screenshots/icon.png" width="128" alt="Kestrel icon">
+</p>
+
 # Kestrel
 
 A native macOS Apache Kafka explorer — browse clusters, topics, partitions, consumer groups and
@@ -6,6 +10,8 @@ Swift 6 and SwiftUI, shipped as a DMG, with a `kestrel` command line tool that s
 engine as the window.
 
 Requirements: **macOS 14 or newer, Apple silicon**.
+
+![Browsing a topic's records, with the selected record's JSON value pretty-printed below](docs/screenshots/record.png)
 
 ## What it does
 
@@ -25,6 +31,22 @@ Requirements: **macOS 14 or newer, Apple silicon**.
 - **Export / import** — write records to JSONL or to another topic, and replay them back.
 
 Everything above is also available from the [`kestrel` CLI](#the-kestrel-command-line).
+
+## Screens
+
+Avro values are decoded through the Schema Registry and shown as JSON, with the subject and version
+that decoded them, and the schema itself one click away:
+
+![An Avro record decoded to JSON, tagged with the registry subject and version](docs/screenshots/avro.png)
+
+Consumer groups show committed offsets against the log end, and the lag between them:
+
+![A consumer group's committed offsets, log end offsets and lag per partition](docs/screenshots/groups.png)
+
+Kafka Connect connectors show task state, and a failed task shows the stack trace the worker
+reported rather than just the word *failed*:
+
+![A Kafka Connect sink connector with a failed task and its full stack trace](docs/screenshots/connect.png)
 
 ## Install
 
@@ -80,6 +102,8 @@ has just opened a disk image.
 2. Open Kestrel and add a cluster: a name and `bootstrap servers` (for the bundled broker,
    `localhost:19092`) are enough for a plaintext cluster. TLS and SASL fields are on the same sheet.
 3. Select the cluster in the sidebar to connect. Brokers, topics and groups fill in underneath it.
+
+![A connected cluster showing its broker count, topic count and connection settings](docs/screenshots/cluster.png)
 
 ## The `kestrel` command line
 
@@ -200,7 +224,8 @@ every window it can see.
 KESTREL_SNAPSHOT=/tmp/kestrel.png ./build/Kestrel.app/Contents/MacOS/Kestrel
 ```
 
-Capture is attempted three ways, in order, keeping the first result that actually contains pixels:
+The screenshots in this README were captured this way, so they are the real window rather than a
+mockup. Capture is attempted three ways, in order, keeping the first result that actually contains pixels:
 
 | Mode | Needs permission | Fidelity |
 | --- | --- | --- |
