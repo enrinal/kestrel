@@ -1,0 +1,44 @@
+Sources/Kestrel/ClusterStore.swift
+  s_50f7516ed4abbf::t_0f6758bfc8312f 59-60
+Sources/KestrelKit/RecordTemplate.swift
+  s_50f7516ed4abbf::t_30552571adff13 1-184
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_6aa36c76add696 2169-2176,2179-2182,2191-2195,2197-2200,2219,2221,2226
+  s_50f7516ed4abbf::t_b7918948edbe69 2311-2331,2357-2359,2362
+  s_50f7516ed4abbf::t_0c68ead335d856 2052-2168,2201-2218,2220,2222-2225,2229-2310,2332-2356,2360-2361,2363-2393
+  s_50f7516ed4abbf::t_19b1ef9a02337a 2177-2178,2183-2190,2196,2227-2228
+Sources/Kestrel/GenerateSheet.swift
+  s_50f7516ed4abbf::t_d925e159a4555e 1-145,147-245
+  s_50f7516ed4abbf::t_0f6758bfc8312f 146
+Sources/Kestrel/ClusterConnection.swift
+  s_50f7516ed4abbf::t_0f6758bfc8312f 246-260
+Sources/Kestrel/RootView.swift
+  s_50f7516ed4abbf::t_0f6758bfc8312f 136-141,555-558
+  s_50f7516ed4abbf::t_eace9e8d4ea09f 559
+Sources/KestrelKit/RecordGenerator.swift
+  s_50f7516ed4abbf::t_ca2162fe03e10e 1-133
+Sources/Kestrel/KestrelCommands.swift
+  s_50f7516ed4abbf::t_0f6758bfc8312f 100-107
+Sources/Kestrel/Snapshot.swift
+  s_50f7516ed4abbf::t_0f6758bfc8312f 86-101
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_f4b0808ddedb23 7-9,18,65-74
+PLAN.md
+  s_50f7516ed4abbf::t_eff4d2abd24a2f 80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "1919edf5f4b62326c242b67c566cda74e53aacef",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
