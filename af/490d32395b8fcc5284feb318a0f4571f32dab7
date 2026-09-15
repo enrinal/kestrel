@@ -1,0 +1,43 @@
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_cab77062f192c8 3,7-9,21-22,40-41
+Sources/KestrelChecks/PackagingChecks.swift
+  s_50f7516ed4abbf::t_6f4349c656735e 1-208
+Scripts/make-icon.swift
+  s_50f7516ed4abbf::t_4995149da41661 28-31,33,39,68-69,72,80-86
+  s_50f7516ed4abbf::t_5b2d3b202c2eeb 57-58,66-67
+  s_50f7516ed4abbf::t_3cd5b786d88f22 89-93,95-102,104,106,109-111,114
+  s_50f7516ed4abbf::t_5330e9f181313d 88,103,107,112
+  s_50f7516ed4abbf::t_9004af3e4268a4 47-55,59-65
+  s_50f7516ed4abbf::t_1a4590408c1545 94,105
+  s_50f7516ed4abbf::t_14ae7b726b1429 75
+  s_50f7516ed4abbf::t_9ba47ef72df202 32,34-38,40-46,56,70-71,73-74,76-79,113,115,213-214,216-217
+  s_50f7516ed4abbf::t_7492ead3649613 87
+  s_50f7516ed4abbf::t_57f39168052996 1-27,108,116-212,215,218-277
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_9871582d2aa2f1 3908-3911
+README.md
+  s_50f7516ed4abbf::t_61e9dd6d77479b 23-68,85
+  s_50f7516ed4abbf::t_89bea0c0209835 86
+Scripts/make-dmg.sh
+  s_50f7516ed4abbf::t_5cee4a8b899816 1-80
+Scripts/build-app.sh
+  s_50f7516ed4abbf::t_f8d53b8af9160b 2,6-10,21,24,31-36,40-41,45-102
+PLAN.md
+  s_50f7516ed4abbf::t_61e9dd6d77479b 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "af490d32395b8fcc5284feb318a0f4571f32dab7",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
