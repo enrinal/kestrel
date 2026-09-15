@@ -1,0 +1,48 @@
+Sources/Kestrel/MessageBrowser.swift
+  s_50f7516ed4abbf::t_01608d8f9c6ad9 64-89,152
+Sources/Kestrel/ClusterConnection.swift
+  s_50f7516ed4abbf::t_04bca3e36f3621 246-264
+Sources/KestrelKit/RecordSearch.swift
+  s_50f7516ed4abbf::t_844303140c973c 81-85,133,137-138,150-151,162-168,213
+  s_50f7516ed4abbf::t_ae35a6efec444a 234-237,241,263
+  s_50f7516ed4abbf::t_8e65358746bbd1 1-80,86-132,134-136,139-149,152-161,169-212,214-233,238-240,242-262,264-296
+Sources/Kestrel/Snapshot.swift
+  s_50f7516ed4abbf::t_04bca3e36f3621 102-112,119-123
+  s_50f7516ed4abbf::t_9a74773c3d83c6 113-118
+Sources/KestrelChecks/Harness.swift
+  s_50f7516ed4abbf::t_ae35a6efec444a 71-80
+Sources/Kestrel/ClusterStore.swift
+  s_50f7516ed4abbf::t_04bca3e36f3621 59-65
+Sources/Kestrel/KestrelCommands.swift
+  s_50f7516ed4abbf::t_04bca3e36f3621 81-88
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_03dcd44b89bd23 2394-2406,2421,2423,2426,2438-2445,2447-2571,2573-2575,2578-2586,2604-2688
+  s_50f7516ed4abbf::t_844303140c973c 2572,2576-2577,2587-2603
+  s_50f7516ed4abbf::t_88b381c56d488a 2407-2420,2422,2424-2425,2427-2437,2446
+Sources/Kestrel/FindSheet.swift
+  s_50f7516ed4abbf::t_9a74773c3d83c6 187-189
+  s_50f7516ed4abbf::t_c1667d5cee7488 1-186,190-233
+Sources/Kestrel/RootView.swift
+  s_50f7516ed4abbf::t_04bca3e36f3621 136-141,566-569
+  s_50f7516ed4abbf::t_19aee74ca3e8ca 570
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_229650b4dfc618 7-9,19,66-76
+PLAN.md
+  s_50f7516ed4abbf::t_406ac596c06db0 85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "f7b280d562d148299b212c5d11fe0336a8d6f8ed",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
