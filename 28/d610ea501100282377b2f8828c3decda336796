@@ -1,0 +1,97 @@
+Package.swift
+  s_50f7516ed4abbf::t_38c8722b63e067 1-52
+Scripts/make-dmg.sh
+  s_50f7516ed4abbf::t_44481ea31333bf 1-80
+Sources/KestrelApp/ClusterConnection.swift
+  s_50f7516ed4abbf::t_2af26b96bd1c6a 1-605
+Sources/KestrelApp/ClusterEditorSheet.swift
+  s_50f7516ed4abbf::t_f6aefc114025db 1-183
+Sources/KestrelApp/ClusterStore.swift
+  s_50f7516ed4abbf::t_7b6c35c7f51b5b 1-391
+Sources/KestrelApp/ConnectInspector.swift
+  s_50f7516ed4abbf::t_bb3e209ee9c914 1-302
+Sources/KestrelApp/ExportSheet.swift
+  s_50f7516ed4abbf::t_a38751bb80858f 1-269
+Sources/KestrelApp/FindSheet.swift
+  s_50f7516ed4abbf::t_8cf513ce21c1dc 1-233
+Sources/KestrelApp/GenerateSheet.swift
+  s_50f7516ed4abbf::t_771146f0f6e5d7 1-245
+Sources/KestrelApp/GroupInspector.swift
+  s_50f7516ed4abbf::t_c8c85fdce2e350 1-320
+Sources/KestrelApp/ImportSheet.swift
+  s_50f7516ed4abbf::t_ebb86dd22737f3 1-239
+Sources/KestrelApp/Inspectors.swift
+  s_50f7516ed4abbf::t_92f7e78b2e68a3 1-315
+Sources/KestrelApp/KestrelCommands.swift
+  s_50f7516ed4abbf::t_c236801ca64852 1-127
+Sources/KestrelApp/MessageBrowser.swift
+  s_50f7516ed4abbf::t_23a3bb1079c25c 1-488
+Sources/KestrelApp/ProduceSheet.swift
+  s_50f7516ed4abbf::t_1f910386824748 1-351
+Sources/KestrelApp/RecordSaving.swift
+  s_50f7516ed4abbf::t_31bf850641724b 1-95
+Sources/KestrelApp/RootView.swift
+  s_50f7516ed4abbf::t_1330ae14cf96d8 1-789
+Sources/KestrelApp/SidebarView.swift
+  s_50f7516ed4abbf::t_4f7f062b81bc3d 1-187
+Sources/KestrelApp/TopicManagement.swift
+  s_444d1cf16f2421::t_f3b41ea70eecd9 1-381
+Sources/KestrelCLI/Arguments.swift
+  s_50f7516ed4abbf::t_2ea6327def1f9d 1-157
+Sources/KestrelCLI/Commands.swift
+  s_50f7516ed4abbf::t_4fcd39eb812721 1-707
+Sources/KestrelCLI/Context.swift
+  s_50f7516ed4abbf::t_d59c591569e572 1-162
+Sources/KestrelCLI/main.swift
+  s_50f7516ed4abbf::t_b1a7ebc4c3596c 1-205
+Sources/KestrelChecks/CLIChecks.swift
+  s_50f7516ed4abbf::t_c1c5ac9e622532 1-589
+Sources/KestrelChecks/Harness.swift
+  s_50f7516ed4abbf::t_8af923f61ea4bf 1-85
+Sources/KestrelKit/AvroCodec.swift
+  s_50f7516ed4abbf::t_4d1f0e51c377be 1-514
+Sources/KestrelKit/ClusterProfile.swift
+  s_50f7516ed4abbf::t_589022dd361f45 1-160
+Sources/KestrelKit/GroupOffsets.swift
+  s_50f7516ed4abbf::t_bc511ad8ad85f4 1-130
+Sources/KestrelKit/KafkaConnect.swift
+  s_50f7516ed4abbf::t_826ce22dce26f2 1-434
+Sources/KestrelKit/KafkaMetadata.swift
+  s_50f7516ed4abbf::t_46d2466b8ed1e7 1-145
+Sources/KestrelKit/KeychainStore.swift
+  s_50f7516ed4abbf::t_45cc22dcc7d655 1-125
+Sources/KestrelKit/PayloadFormatter.swift
+  s_50f7516ed4abbf::t_ba88b1948a53d5 1-189
+Sources/KestrelKit/RecordEnvelope.swift
+  s_50f7516ed4abbf::t_cd3dbe992be95a 1-258
+Sources/KestrelKit/RecordExporter.swift
+  s_50f7516ed4abbf::t_c8e5b60008c22e 1-228
+Sources/KestrelKit/RecordImporter.swift
+  s_50f7516ed4abbf::t_dd256cfbb6b380 1-292
+Sources/KestrelKit/RecordSearch.swift
+  s_50f7516ed4abbf::t_17eb934b0375ca 1-296
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "28d610ea501100282377b2f8828c3decda336796",
+  "prompts": {},
+  "sessions": {
+    "s_444d1cf16f2421": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "713a15e6-9bd8-4867-b7fe-3ce2a5fb7319",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    },
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
