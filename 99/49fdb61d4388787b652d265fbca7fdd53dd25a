@@ -1,0 +1,52 @@
+Sources/Kestrel/RootView.swift
+  s_50f7516ed4abbf::t_587d2f6a18dbca 216-247,266-292
+  s_50f7516ed4abbf::t_bf5ca1b97bdc9a 469-478
+Sources/KestrelKit/KafkaConnect.swift
+  s_50f7516ed4abbf::t_e211ca550d9fb8 1-7,9-48,50-434
+  s_50f7516ed4abbf::t_8d422409171f17 8,49
+Sources/Kestrel/ConnectInspector.swift
+  s_50f7516ed4abbf::t_a0093c6eac01dd 1-49,52,54,56,58-302
+  s_50f7516ed4abbf::t_867e4be501d0de 50-51,53,55,57
+Sources/KestrelKit/KafkaClient.swift
+  s_50f7516ed4abbf::t_2c007baa43e757 13-14,21-22,27
+Sources/KestrelChecks/main.swift
+  s_50f7516ed4abbf::t_587d2f6a18dbca 1455-1456
+  s_50f7516ed4abbf::t_aa9697fabd10d6 3526-3907
+Sources/Kestrel/SidebarView.swift
+  s_50f7516ed4abbf::t_bf5ca1b97bdc9a 128-167
+README.md
+  s_50f7516ed4abbf::t_0c317675060b8a 35-36,45-48
+Sources/Kestrel/ClusterEditorSheet.swift
+  s_50f7516ed4abbf::t_be8f4ae8e95c62 77-98,128
+Sources/Kestrel/ClusterConnection.swift
+  s_50f7516ed4abbf::t_8e216e7421b4fc 14-15,25-27,71-80,118-230,252-253,259-261
+Sources/KestrelKit/ClusterProfile.swift
+  s_50f7516ed4abbf::t_2c007baa43e757 78-99,114,124-125,135,157-158
+PLAN.md
+  s_50f7516ed4abbf::t_0c317675060b8a 97
+Sources/KestrelKit/KeychainStore.swift
+  s_50f7516ed4abbf::t_2c007baa43e757 12-13
+Docker/kafka.yml
+  s_50f7516ed4abbf::t_174d3f0e77dcb1 88-90,92
+  s_50f7516ed4abbf::t_c6460d81b6c9eb 76-87,91,93-114
+Sources/Kestrel/ClusterStore.swift
+  s_50f7516ed4abbf::t_be8f4ae8e95c62 13,196,239-244,327-349
+LOOP_STATE.md
+  s_50f7516ed4abbf::t_0c317675060b8a 7-9,21,36-39,43,45-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "9949fdb61d4388787b652d265fbca7fdd53dd25a",
+  "prompts": {},
+  "sessions": {
+    "s_50f7516ed4abbf": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "daf504ea-5487-4eff-98fe-bd4b677854da",
+        "model": "claude-opus-5"
+      },
+      "human_author": "enrinalzulhimar <muhamad.zulhimar@tiket.com>"
+    }
+  }
+}
