@@ -52,6 +52,10 @@ reported rather than just the word *failed*:
 
 ### From the DMG (no build tools needed)
 
+**0.2.0** adds per-cluster producer compression (gzip, Snappy, LZ4 and Zstandard)
+and a one-off CLI `--compression` override for produce, import, generate and
+export to another topic. Existing profiles still default to no compression.
+
 Download `Kestrel.dmg` from the [latest release](../../releases/latest), open it, and drag
 `Kestrel.app` onto the `Applications` folder in the window.
 
