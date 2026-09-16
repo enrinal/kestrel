@@ -64,6 +64,7 @@ enum ClusterResolver {
     static func resolve(_ arguments: inout Arguments) throws -> (ClusterProfile, ClusterSecrets) {
         let name = arguments.string("cluster")
         let bootstrap = arguments.string("bootstrap")
+        let compression = try compression(&arguments)
 
         if let name, bootstrap != nil {
             throw UsageError("pass either --cluster or --bootstrap, not both")
@@ -73,7 +74,11 @@ enum ClusterResolver {
             // No saved profile, so no Keychain and no secrets: a cluster given
             // on the command line is plaintext or nothing.
             return (
-                ClusterProfile(name: "(--bootstrap)", bootstrapServers: bootstrap),
+                ClusterProfile(
+                    name: "(--bootstrap)",
+                    bootstrapServers: bootstrap,
+                    compression: compression ?? .none
+                ),
                 .none
             )
         }
@@ -89,10 +94,17 @@ enum ClusterResolver {
             )
         }
 
-        guard let profile = profiles.first(where: { $0.name.caseInsensitiveCompare(name) == .orderedSame })
+        guard var profile = profiles.first(where: { $0.name.caseInsensitiveCompare(name) == .orderedSame })
         else {
             let known = profiles.map(\.name).sorted().joined(separator: ", ")
             throw UsageError("no saved cluster named \(name). Known clusters: \(known)")
+        }
+
+        // The flag overrides the saved codec for this run only; the profile is
+        // never written back, so a one-off gzip produce cannot change what the
+        // app does next time it connects.
+        if let compression {
+            profile.compression = compression
         }
 
         // Reading a secret the app wrote makes macOS ask the user to allow it,
@@ -104,6 +116,20 @@ enum ClusterResolver {
             return (profile, .none)
         }
         return (profile, secrets(for: profile))
+    }
+
+    /// Reads `--compression`, or `nil` when it was not given.
+    ///
+    /// - Throws: ``UsageError`` naming the codecs, because a rejected value
+    ///   here is a typo, and the alternative is producing uncompressed while
+    ///   reporting success.
+    private static func compression(_ arguments: inout Arguments) throws -> CompressionCodec? {
+        guard let raw = arguments.string("compression") else { return nil }
+        guard let codec = CompressionCodec(rawValue: raw.lowercased()) else {
+            let known = CompressionCodec.allCases.map(\.rawValue).joined(separator: ", ")
+            throw UsageError("--compression must be one of: \(known), got \(raw)")
+        }
+        return codec
     }
 
     /// Reads only the secrets the profile's settings actually call for.

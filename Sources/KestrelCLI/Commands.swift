@@ -19,7 +19,7 @@ enum Commands {
         let profiles = try ClusterProfileRepository().load()
 
         output.table(
-            columns: ["Name", "Bootstrap Servers", "Security", "Registry", "Connect"],
+            columns: ["Name", "Bootstrap Servers", "Security", "Compression", "Registry", "Connect"],
             rows: profiles
                 .sorted { $0.name < $1.name }
                 .map { profile in
@@ -27,6 +27,10 @@ enum Commands {
                         profile.name,
                         profile.bootstrapServers,
                         profile.securityProtocol.rawValue,
+                        // Listed because it silently changes what a produce
+                        // puts on the wire, and nothing else in the terminal
+                        // would say the profile had asked for it.
+                        profile.compression.rawValue,
                         profile.schemaRegistry.isConfigured ? profile.schemaRegistry.url : "—",
                         profile.connect.isConfigured ? profile.connect.url : "—"
                     ]
