@@ -61,8 +61,15 @@ Download `Kestrel.dmg` from the [latest release](../../releases/latest), open it
 
 Kestrel is signed **ad-hoc**, not with an Apple Developer ID, so the first open needs a detour:
 right-click (or Control-click) `Kestrel.app` and choose **Open**, then confirm. A plain double-click
-offers only *Move to Bin*. macOS remembers the decision, so this is needed once. If the Open option
-does not appear:
+offers only *Move to Bin*. macOS remembers the decision, so this is needed once.
+
+On macOS Sequoia (15) and later, right-click → Open may not offer an *Open Anyway* option at all —
+instead you get a dialog titled *"Kestrel" Not Opened* with only *Move to Trash* / *Done*. If that
+happens: click **Done**, then go to **System Settings → Privacy & Security**, scroll down to the
+security notice about Kestrel, and click **Open Anyway**. It will then launch (after one more
+confirmation) on the next attempt.
+
+If neither of the above shows an *Open Anyway* option:
 
 ```
 xattr -dr com.apple.quarantine /Applications/Kestrel.app
