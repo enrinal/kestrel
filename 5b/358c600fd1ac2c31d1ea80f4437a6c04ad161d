@@ -1,0 +1,23 @@
+Sources/KestrelApp/MessageBrowser.swift
+  s_f29bdd9178c743::t_f001b5079141b9 17-18,46-63,70-72,74,80,115,169-196,209-212,255-262
+Sources/KestrelApp/RootView.swift
+  s_f29bdd9178c743::t_caacdd19f736c1 248-249,278
+Sources/KestrelApp/Snapshot.swift
+  s_f29bdd9178c743::t_3d132bd7a34004 102-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "5b358c600fd1ac2c31d1ea80f4437a6c04ad161d",
+  "prompts": {},
+  "sessions": {
+    "s_f29bdd9178c743": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7df033f-d5a6-4e22-9caa-0480d002245e",
+        "model": "unknown"
+      },
+      "human_author": "Muhamad Enrinal Zulhimar <muhamadzulhimar@Enrinal-Zulhimar.local>"
+    }
+  }
+}
