@@ -245,6 +245,8 @@ struct RootView: View {
                     }
                 case "dump-connect":
                     dumpConnect()
+                case "filter-sidebar":
+                    store.sidebarFilter = Snapshot.sidebarFilter ?? ""
                 case "dump-topics":
                     dumpTopics()
                 case "dump-selection":
@@ -273,7 +275,7 @@ private extension RootView {
     func dumpTopics() {
         guard let clusterID = store.selection?.clusterID else { return }
         let topics = store.visibleTopics(for: clusterID)
-        print("DUMP_TOPIC_COUNT \(topics.count)")
+        print("DUMP_TOPIC_COUNT \(topics.count) filter=\(store.sidebarFilter.isEmpty ? "none" : store.sidebarFilter) rendered=\(min(topics.count, ClusterStore.sidebarRowLimit))")
         for topic in topics {
             print("DUMP_TOPIC_ROW \(topic.name)\t\(topic.partitionCount)")
         }

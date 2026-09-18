@@ -99,6 +99,11 @@ enum Snapshot {
         ProcessInfo.processInfo.environment["KESTREL_SNAPSHOT_GENERATE_RUN"] == "1"
     }
 
+    /// Text typed into the sidebar's filter, from `KESTREL_SNAPSHOT_FILTER`.
+    static var sidebarFilter: String? {
+        ProcessInfo.processInfo.environment["KESTREL_SNAPSHOT_FILTER"]
+    }
+
     /// Text the find sheet searches for, from `KESTREL_SNAPSHOT_FIND`.
     static var findQuery: String? {
         ProcessInfo.processInfo.environment["KESTREL_SNAPSHOT_FIND"]

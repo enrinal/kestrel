@@ -23,12 +23,45 @@ struct SidebarView: View {
                 }
             }
         }
+        .safeAreaInset(edge: .top) { filterField }
         .safeAreaInset(edge: .bottom) {
             Button("Add Cluster", systemImage: "plus") { store.beginAdd() }
                 .buttonStyle(.borderless)
                 .padding(8)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    /// Narrows the topic and consumer group branches.
+    ///
+    /// Its own field rather than `.searchable`: this filters the tree in
+    /// place, while Find Messages goes back to the broker, and two search
+    /// affordances that read alike but do different things is worse than one
+    /// plain field that says what it narrows.
+    private var filterField: some View {
+        let filter = Binding(get: { store.sidebarFilter }, set: { store.sidebarFilter = $0 })
+
+        return HStack(spacing: 6) {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(.secondary)
+            TextField("Filter topics and groups", text: filter)
+                .textFieldStyle(.plain)
+            if !store.sidebarFilter.isEmpty {
+                Button {
+                    store.sidebarFilter = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.secondary)
+                .help("Clear the filter")
+            }
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 4)
+        .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+        .padding(.horizontal, 10)
+        .padding(.bottom, 6)
     }
 }
 
@@ -91,12 +124,13 @@ private struct ClusterTree: View {
         }
 
         DisclosureGroup(isExpanded: expansion(.topicsFolder(cluster.id))) {
-            ForEach(topics) { topic in
+            ForEach(topics.prefix(ClusterStore.sidebarRowLimit)) { topic in
                 Label(topic.name, systemImage: topic.isInternal ? "lock.rectangle" : "tray.full")
                     .tag(SidebarItem.topic(cluster.id, topic.name))
             }
+            overflowRow(shown: ClusterStore.sidebarRowLimit, of: topics.count)
         } label: {
-            Label("Topics (\(topics.count))", systemImage: "tray.2")
+            Label(countLabel("Topics", shown: topics.count, of: totalTopics), systemImage: "tray.2")
                 .tag(SidebarItem.topicsFolder(cluster.id))
         }
 
@@ -111,10 +145,12 @@ private struct ClusterTree: View {
                     .foregroundStyle(.secondary)
                     .lineLimit(3)
             default:
-                ForEach(connection?.groups ?? []) { group in
+                let groups = store.visibleGroups(for: cluster.id)
+                ForEach(groups.prefix(ClusterStore.sidebarRowLimit)) { group in
                     Label(group.id, systemImage: "person.3")
                         .tag(SidebarItem.group(cluster.id, group.id))
                 }
+                overflowRow(shown: ClusterStore.sidebarRowLimit, of: groups.count)
             }
         } label: {
             Label(groupsLabel, systemImage: "person.2.badge.gearshape")
@@ -169,7 +205,41 @@ private struct ClusterTree: View {
 
     private var groupsLabel: String {
         guard let connection, connection.groupsLoad == .loaded else { return "Consumer Groups" }
-        return "Consumer Groups (\(connection.groups.count))"
+        return countLabel(
+            "Consumer Groups",
+            shown: store.visibleGroups(for: cluster.id).count,
+            of: connection.groups.count
+        )
+    }
+
+    /// Topics on the cluster before the filter, for the "23 of 1,819" label.
+    private var totalTopics: Int {
+        guard let connection else { return 0 }
+        return store.showsInternalTopics
+            ? connection.topics.count
+            : connection.topics.count { !$0.isInternal }
+    }
+
+    /// `Topics (1,819)`, or `Topics (23 of 1,819)` while the filter is on.
+    ///
+    /// Both numbers, because a branch that only showed the filtered count
+    /// would read as a cluster that had lost its topics.
+    private func countLabel(_ title: String, shown: Int, of total: Int) -> String {
+        shown == total
+            ? "\(title) (\(total.formatted()))"
+            : "\(title) (\(shown.formatted()) of \(total.formatted()))"
+    }
+
+    /// The row that stands in for what `sidebarRowLimit` cut off.
+    @ViewBuilder
+    private func overflowRow(shown: Int, of total: Int) -> some View {
+        if total > shown {
+            Label(
+                "\((total - shown).formatted()) more — filter to narrow",
+                systemImage: "ellipsis.circle"
+            )
+            .foregroundStyle(.secondary)
+        }
     }
 
     @ViewBuilder

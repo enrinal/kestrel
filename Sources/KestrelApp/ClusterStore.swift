@@ -95,6 +95,22 @@ final class ClusterStore {
     /// Whether the sidebar lists Kafka's internal `__` topics.
     var showsInternalTopics = false
 
+    /// Narrows the sidebar's topic and consumer group lists to matching names.
+    var sidebarFilter = ""
+
+    /// How many rows one sidebar branch draws before it stops.
+    ///
+    /// `List` only *displays* the rows on screen, but it still builds a view
+    /// for every element of the `ForEach` on each pass, and it makes a pass on
+    /// every change to this store — every selection, expand and hover. Counted
+    /// against a 2,021-topic broker: uncapped, reaching a settled window built
+    /// 4,000+ topic rows; capped, 500. That per-change cost is the scroll and
+    /// click lag, so the cap is on how many rows are offered, not drawn.
+    ///
+    /// A list that long cannot be read by eye anyway. `sidebarFilter` is how
+    /// you reach what the cut-off hides, and the branch row says so.
+    static let sidebarRowLimit = 300
+
     /// True when the selection belongs to a connected cluster.
     var isSelectionConnected: Bool {
         guard let clusterID = selection?.clusterID else { return false }
@@ -316,10 +332,35 @@ final class ClusterStore {
         await connection.refresh()
     }
 
-    /// Topics for the sidebar, honouring the internal-topics preference.
+    /// Topics for the sidebar, honouring the internal-topics preference and
+    /// the sidebar filter.
     func visibleTopics(for id: UUID) -> [TopicInfo] {
         guard let connection = connections[id] else { return [] }
-        return showsInternalTopics ? connection.topics : connection.topics.filter { !$0.isInternal }
+        let topics = showsInternalTopics
+            ? connection.topics
+            : connection.topics.filter { !$0.isInternal }
+        return Self.matching(topics, filter: sidebarFilter, name: \.name)
+    }
+
+    /// Consumer groups for the sidebar, honouring the sidebar filter.
+    ///
+    /// Filtered by the same field as topics: a cluster with hundreds of groups
+    /// hits `sidebarRowLimit` too, and a cut-off list you cannot narrow would
+    /// be a list with rows you can never reach.
+    func visibleGroups(for id: UUID) -> [ConsumerGroupInfo] {
+        guard let connection = connections[id] else { return [] }
+        return Self.matching(connection.groups, filter: sidebarFilter, name: \.id)
+    }
+
+    /// Keeps the items whose name contains `filter`, case- and diacritic-insensitively.
+    private static func matching<Item>(
+        _ items: [Item],
+        filter: String,
+        name: (Item) -> String
+    ) -> [Item] {
+        let wanted = filter.trimmingCharacters(in: .whitespaces)
+        guard !wanted.isEmpty else { return items }
+        return items.filter { name($0).localizedCaseInsensitiveContains(wanted) }
     }
 
     /// Result of the last registry test in the editor sheet.
