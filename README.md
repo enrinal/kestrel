@@ -52,6 +52,13 @@ reported rather than just the word *failed*:
 
 ### From the DMG (no build tools needed)
 
+**0.3.0** makes a cluster with thousands of topics usable: the sidebar has a
+filter for topics and consumer groups and stops drawing a branch past 300 rows,
+so a 2,000-topic broker no longer scrolls badly. The message browser gains a
+filter over the loaded page, matching the whole key and value rather than the
+table's preview. The record table now fills its pane without waiting for a
+click.
+
 **0.2.0** adds per-cluster producer compression (gzip, Snappy, LZ4 and Zstandard)
 and a one-off CLI `--compression` override for produce, import, generate and
 export to another topic. Existing profiles still default to no compression.
