@@ -1,0 +1,21 @@
+README.md
+  s_f29bdd9178c743::t_5d0d28b2df5d1f 55-61
+Resources/Info.plist
+  s_f29bdd9178c743::t_9e4cfda040ad99 20,22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "0110b0a136afd54b518be15fe422a896f061772c",
+  "prompts": {},
+  "sessions": {
+    "s_f29bdd9178c743": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7df033f-d5a6-4e22-9caa-0480d002245e",
+        "model": "unknown"
+      },
+      "human_author": "Muhamad Enrinal Zulhimar <muhamadzulhimar@Enrinal-Zulhimar.local>"
+    }
+  }
+}
