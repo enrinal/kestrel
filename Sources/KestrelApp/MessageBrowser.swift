@@ -14,6 +14,8 @@ struct MessageBrowser: View {
     @State private var latestCount = 50
     @State private var offsetText = "0"
     @State private var limit = 100
+    /// Narrows the loaded page. Empty means show everything that was read.
+    @State private var filter = ""
 
     /// The three ways a read can begin, matching ``StartPosition``.
     private enum StartMode: String, CaseIterable, Identifiable {
@@ -41,21 +43,41 @@ struct MessageBrowser: View {
         }
     }
 
-    private var records: [KafkaRecord] { page?.records ?? [] }
+    /// The page, narrowed by the filter field.
+    ///
+    /// Matches the whole key and value rather than the table's previews, which
+    /// are truncated: a hit 300 bytes into a payload is exactly the one worth
+    /// finding. This only re-reads what is already in memory — Find Messages
+    /// (⇧⌘F) is the one that goes back to the broker.
+    private var records: [KafkaRecord] {
+        let loaded = page?.records ?? []
+        guard let matcher = filterMatcher else { return loaded }
+        return loaded.filter { matcher.match($0.key) != nil || matcher.match($0.value) != nil }
+    }
+
+    /// Nil when the filter is empty, so an empty field is not a query.
+    private var filterMatcher: Matcher? {
+        let wanted = filter.trimmingCharacters(in: .whitespaces)
+        guard !wanted.isEmpty else { return nil }
+        return try? Matcher(query: SearchQuery(text: wanted))
+    }
 
     var body: some View {
         VStack(spacing: 0) {
             controls
             Divider()
             VSplitView {
+                // maxWidth is load-bearing: without it VSplitView hands the
+                // table its ideal width on the first pass, so the columns sit
+                // squeezed against one edge until a click forces a relayout.
                 recordTable
-                    .frame(minHeight: 160)
+                    .frame(maxWidth: .infinity, minHeight: 160, maxHeight: .infinity)
                 RecordDetail(
                     record: records.first { $0.id == store.selectedRecord },
                     topic: topic.name,
                     connection: connection
                 )
-                .frame(minHeight: 140)
+                .frame(maxWidth: .infinity, minHeight: 140, maxHeight: .infinity)
             }
         }
         .onChange(of: topic.name) { resetSelection() }
@@ -90,6 +112,7 @@ struct MessageBrowser: View {
 
     private func resetSelection() {
         store.selectedRecord = nil
+        filter = ""
     }
 
     // MARK: Controls
@@ -143,11 +166,34 @@ struct MessageBrowser: View {
                 }
             }
 
-            if let page {
-                Text(summary(for: page))
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .monospacedDigit()
+            HStack(spacing: 8) {
+                if let page {
+                    Text(summary(for: page))
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
+
+                Spacer()
+
+                HStack(spacing: 6) {
+                    Image(systemName: "line.3.horizontal.decrease")
+                        .foregroundStyle(.secondary)
+                    TextField("Filter loaded records", text: $filter)
+                        .textFieldStyle(.plain)
+                    if !filter.isEmpty {
+                        Button { filter = "" } label: { Image(systemName: "xmark.circle.fill") }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.secondary)
+                            .help("Clear the filter")
+                    }
+                }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 3)
+                .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+                .frame(width: 260)
             }
         }
         .task(id: store.recordJump) { await honourJump() }
@@ -160,7 +206,10 @@ struct MessageBrowser: View {
             return "Partition \(partition) is empty (high watermark \(page.highWatermark))"
         }
         let end = page.reachedEnd ? ", reached end of partition" : ""
-        return "\(page.records.count) records from offset \(page.startOffset) · partition holds \(range)\(end)"
+        let read = filterMatcher == nil
+            ? "\(page.records.count) records"
+            : "\(records.count) of \(page.records.count) records match"
+        return "\(read) from offset \(page.startOffset) · partition holds \(range)\(end)"
     }
 
     // MARK: Table
@@ -203,6 +252,14 @@ struct MessageBrowser: View {
             } description: {
                 Text("Pick a start position, then choose Load.")
             }
+        case .loaded where records.isEmpty && filterMatcher != nil:
+            // A filter that hides every row must not read as an empty topic.
+            ContentUnavailableView {
+                Label("No Matching Records", systemImage: "line.3.horizontal.decrease")
+            } description: {
+                Text("None of the \(page?.records.count ?? 0) loaded records contain “\(filter)”.")
+            }
+
         case .loaded where records.isEmpty:
             // An empty partition must say so rather than spin forever.
             ContentUnavailableView {

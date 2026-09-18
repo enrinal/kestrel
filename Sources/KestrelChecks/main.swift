@@ -2761,6 +2761,31 @@ await harness.asyncSuite("Finding messages") { h in
         )
     }
 
+    h.check("the message browser's filter narrows a loaded page on key or value") {
+        // The browser filters a page it already holds with the same Matcher the
+        // broker-wide search uses, and looks at the whole payload rather than
+        // the table's truncated preview: a hit deep in a value is exactly the
+        // one worth finding.
+        let deep = String(repeating: "x", count: 400) + "needle"
+        let page = [
+            (key: Data("order-1".utf8), value: Data(#"{"status":"ISSUED"}"#.utf8)),
+            (key: Data("order-2".utf8), value: Data(#"{"status":"CANCELLED"}"#.utf8)),
+            (key: Data("needle-key".utf8), value: Data("{}".utf8)),
+            (key: Data("order-4".utf8), value: Data(deep.utf8)),
+        ]
+
+        func filtered(_ text: String) throws -> Int {
+            let matcher = try Matcher(query: SearchQuery(text: text))
+            return page.count { matcher.match($0.key) != nil || matcher.match($0.value) != nil }
+        }
+
+        try expectEqual(try filtered("ISSUED"), 1, "matches a value")
+        try expectEqual(try filtered("issued"), 1, "matching is case-insensitive")
+        try expectEqual(try filtered("order-"), 3, "matches a key")
+        try expectEqual(try filtered("needle"), 2, "one key and one value 400 bytes in")
+        try expectEqual(try filtered("absent"), 0, "no match hides every row")
+    }
+
     h.check("an excerpt is trimmed around the match") {
         let matcher = try Matcher(query: SearchQuery(text: "middle"))
         let long = String(repeating: "a", count: 200) + "middle" + String(repeating: "b", count: 200)
