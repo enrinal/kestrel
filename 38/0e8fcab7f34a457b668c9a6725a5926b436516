@@ -1,0 +1,19 @@
+README.md
+  s_4229fda52f7a6b::t_05d3bd9c3c3fe0 89-91,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "380e8fcab7f34a457b668c9a6725a5926b436516",
+  "prompts": {},
+  "sessions": {
+    "s_4229fda52f7a6b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5ea0ab3e-6843-4b99-92e2-b55465cf8acc",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Muhamad Enrinal Zulhimar <muhamadzulhimar@Enrinal-Zulhimar.local>"
+    }
+  }
+}
