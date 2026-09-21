@@ -86,8 +86,11 @@ Nothing else is required: the Kafka client library and its dependencies are insi
 
 ### From source
 
+This section is for building Kestrel yourself. If you only want to run the app, use the DMG above —
+it needs none of this, including Homebrew.
+
 Prerequisites: Swift 6.2 or newer (Xcode or the Command Line Tools, `xcode-select --install`), and
-librdkafka:
+librdkafka, needed only to compile:
 
 ```
 brew install librdkafka
