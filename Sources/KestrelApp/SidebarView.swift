@@ -23,7 +23,7 @@ struct SidebarView: View {
                 }
             }
         }
-        .safeAreaInset(edge: .top) { filterField }
+        .safeAreaInset(edge: .top) { SidebarFilterField() }
         .safeAreaInset(edge: .bottom) {
             Button("Add Cluster", systemImage: "plus") { store.beginAdd() }
                 .buttonStyle(.borderless)
@@ -32,23 +32,24 @@ struct SidebarView: View {
         }
     }
 
-    /// Narrows the topic and consumer group branches.
-    ///
-    /// Its own field rather than `.searchable`: this filters the tree in
-    /// place, while Find Messages goes back to the broker, and two search
-    /// affordances that read alike but do different things is worse than one
-    /// plain field that says what it narrows.
-    private var filterField: some View {
-        let filter = Binding(get: { store.sidebarFilter }, set: { store.sidebarFilter = $0 })
+}
+
+/// Narrows local topic and group lists without a broker request.
+private struct SidebarFilterField: View {
+    @Environment(ClusterStore.self) private var store
+    @State private var filter = DebouncedFilter()
+
+    var body: some View {
+        @Bindable var filter = filter
 
         return HStack(spacing: 6) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
-            TextField("Filter topics and groups", text: filter)
+            TextField("Filter topics and groups", text: $filter.text)
                 .textFieldStyle(.plain)
-            if !store.sidebarFilter.isEmpty {
+            if !filter.text.isEmpty {
                 Button {
-                    store.sidebarFilter = ""
+                    filter.clear()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                 }
@@ -62,6 +63,13 @@ struct SidebarView: View {
         .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
         .padding(.horizontal, 10)
         .padding(.bottom, 6)
+        .onAppear { filter.setImmediately(store.sidebarFilter) }
+        .onChange(of: filter.appliedText) { _, value in
+            if store.sidebarFilter != value { store.sidebarFilter = value }
+        }
+        .onChange(of: store.sidebarFilter) { _, value in
+            if filter.appliedText != value { filter.setImmediately(value) }
+        }
     }
 }
 

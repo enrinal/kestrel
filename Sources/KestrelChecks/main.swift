@@ -2,6 +2,11 @@ import Foundation
 import KestrelKit
 
 let harness = Harness()
+if CommandLine.arguments.contains("--sidebar-filter-only") {
+    await registerSidebarFilterChecks(harness)
+    harness.finish()
+}
+await registerSidebarFilterChecks(harness)
 
 // MARK: Helpers
 
